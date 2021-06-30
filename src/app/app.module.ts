@@ -1,3 +1,5 @@
+import { Routes, RouterModule } from '@angular/router';
+import { PostService } from './post.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -9,6 +11,13 @@ import { PostComponent } from './post/post.component';
 import { PostEditComponent } from './post-edit/post-edit.component';
 import { AuthComponent } from './auth/auth.component';
 
+const routes: Routes = [
+  { path: 'post-list', component: PostListComponent },
+  { path: 'auth', component: AuthComponent },
+  { path: 'post-add', component: PostEditComponent },
+  { path: '', redirectTo: 'post-list', pathMatch: 'full' },
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,13 +25,10 @@ import { AuthComponent } from './auth/auth.component';
     PostListComponent,
     PostComponent,
     PostEditComponent,
-    AuthComponent
+    AuthComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule, RouterModule.forRoot(routes)],
+  providers: [PostService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
